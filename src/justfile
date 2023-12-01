@@ -7,10 +7,16 @@ day01:
   just day01-part01
   just day01-part02
 
-day01-part01:
-  python app.py day01.part1 ../resources/day01/example-1.txt --expected-output 142
-  python app.py day01.part1 ../resources/day01/input.txt
+day01-part01 $SOLVER="day01.part1" $EXAMPLE_FILE_PATH="../resources/day01/example-1.txt" $EXPECTED_OUTPUT="142" $INPUT_FILE_PATH="../resources/day01/input.txt":
+  just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
+  just run $SOLVER $INPUT_FILE_PATH
 
-day01-part02:
-  python app.py day01.part2 ../resources/day01/example-2.txt --expected-output 281
-  python app.py day01.part2 ../resources/day01/input.txt
+day01-part02 $SOLVER="day01.part2" $EXAMPLE_FILE_PATH="../resources/day01/example-2.txt" $EXPECTED_OUTPUT="281" $INPUT_FILE_PATH="../resources/day01/input.txt":
+  just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
+  just run $SOLVER $INPUT_FILE_PATH
+
+run-example $SOLVER $INPUT_FILE_PATH $EXPECTED_OUTPUT:
+  python app.py $SOLVER $INPUT_FILE_PATH --expected-output $EXPECTED_OUTPUT && echo "> $SOLVER -> Example OK"
+
+run $SOLVER $INPUT_FILE_PATH:
+  echo "> $SOLVER -> `python app.py $SOLVER $INPUT_FILE_PATH`"
