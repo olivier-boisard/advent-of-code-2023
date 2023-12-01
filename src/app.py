@@ -1,7 +1,7 @@
 import importlib
 
 import typer
-from src.puzzle_solver import PuzzleSolver
+from puzzle_solver import PuzzleSolver
 
 app = typer.Typer()
 
