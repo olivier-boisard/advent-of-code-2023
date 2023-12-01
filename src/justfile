@@ -1,0 +1,16 @@
+#!/usr/bin/env just --justfile
+
+all:
+  just day01
+
+day01:
+  just day01-part01
+  just day01-part02
+
+day01-part01:
+  python app.py day01.part1 day01/example-1.txt --expected-output 142
+  python app.py day01.part1 day01/input.txt
+
+day01-part02:
+  python app.py day01.part2 day01/example-2.txt --expected-output 281
+  python app.py day01.part2 day01/input.txt
