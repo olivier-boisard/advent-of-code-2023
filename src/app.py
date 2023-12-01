@@ -22,6 +22,5 @@ def solve(solver_plugin_name: str, input_file_path: str, expected_output: int = 
         print(output)
 
 
-# Entry point
 if __name__ == "__main__":
     app()
