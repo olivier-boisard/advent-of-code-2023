@@ -10,13 +10,13 @@ run $SOLVER $INPUT_FILE_PATH:
   echo "> $SOLVER -> `python app.py $SOLVER $INPUT_FILE_PATH`"
 
 day01:
-  just day01-part01
-  just day01-part02
+  just day01-part1
+  just day01-part2
 
-day01-part01 $SOLVER="day01.part1" $EXAMPLE_FILE_PATH="../resources/day01/example-1.txt" $EXPECTED_OUTPUT="142" $INPUT_FILE_PATH="../resources/day01/input.txt":
+day01-part1 $SOLVER="day01.part1" $EXAMPLE_FILE_PATH="../resources/day01/example-1.txt" $EXPECTED_OUTPUT="142" $INPUT_FILE_PATH="../resources/day01/input.txt":
   just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
   just run $SOLVER $INPUT_FILE_PATH
 
-day01-part02 $SOLVER="day01.part2" $EXAMPLE_FILE_PATH="../resources/day01/example-2.txt" $EXPECTED_OUTPUT="281" $INPUT_FILE_PATH="../resources/day01/input.txt":
+day01-part2 $SOLVER="day01.part2" $EXAMPLE_FILE_PATH="../resources/day01/example-2.txt" $EXPECTED_OUTPUT="281" $INPUT_FILE_PATH="../resources/day01/input.txt":
   just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
   just run $SOLVER $INPUT_FILE_PATH
