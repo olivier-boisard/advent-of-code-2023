@@ -25,3 +25,7 @@ day02-part1 $SOLVER="day02.part1" $EXAMPLE_FILE_PATH="../resources/day02/example
   just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
   just run $SOLVER $INPUT_FILE_PATH
 
+day02-part2 $SOLVER="day02.part2" $EXAMPLE_FILE_PATH="../resources/day02/example.txt" $EXPECTED_OUTPUT="2286" $INPUT_FILE_PATH="../resources/day02/input.txt":
+  just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
+  just run $SOLVER $INPUT_FILE_PATH
+

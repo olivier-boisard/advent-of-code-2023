@@ -15,19 +15,6 @@ class CubeSet:
         return enough_blue_cubes and enough_red_cubes and enough_green
 
 
-class GameChecker:
-    def __init__(self, game_config: CubeSet):
-        self._game_config = game_config
-
-    def __call__(self, game: Iterable[CubeSet]):
-        game_is_valid = True
-        for draw in game:
-            if not draw.is_subset_of(self._game_config):
-                game_is_valid = False
-                break
-        return game_is_valid
-
-
 def extract_games(games: Iterable[str]) -> Mapping[int, Iterable[CubeSet]]:
     output = {}
     for line in games:
