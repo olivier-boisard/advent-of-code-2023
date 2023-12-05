@@ -44,3 +44,7 @@ day04-part1 $SOLVER="day04.part1" $EXAMPLE_FILE_PATH="../resources/day04/example
 day04-part2 $SOLVER="day04.part2" $EXAMPLE_FILE_PATH="../resources/day04/example.txt" $EXPECTED_OUTPUT="30" $INPUT_FILE_PATH="../resources/day04/input.txt":
   just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
   just run $SOLVER $INPUT_FILE_PATH
+
+day05-part1 $SOLVER="day05.part1" $EXAMPLE_FILE_PATH="../resources/day05/example.txt" $EXPECTED_OUTPUT="35" $INPUT_FILE_PATH="../resources/day05/input.txt":
+  just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
+  just run $SOLVER $INPUT_FILE_PATH
