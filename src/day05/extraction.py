@@ -1,4 +1,5 @@
 import re
+from functools import cache
 from typing import List, Iterable, Callable, Any, Tuple
 
 from day05.mapping import RangeMapper, MultipleMapper
@@ -8,6 +9,17 @@ def _chain(item: Any, funcs: Iterable[Callable[[Any], Any]]) -> Any:
     for func in funcs:
         item = func(item)
     return item
+
+
+class Chain:
+
+    def __init__(self, functions):
+        self._functions = functions
+
+    def __call__(self, v):
+        for f in self._functions:
+            v = f(v)
+        return v
 
 
 def extract_map_and_seeds(puzzle_input: Iterable[str]) -> Tuple[Callable[[int], int], Iterable[int]]:
@@ -31,7 +43,7 @@ def extract_map_and_seeds(puzzle_input: Iterable[str]) -> Tuple[Callable[[int], 
     if seeds is None:
         raise RuntimeError('No seeds found')
 
-    return lambda r: _chain(r, all_mappers), seeds
+    return Chain(all_mappers), seeds
 
 
 def _extract_numbers(line: str) -> List[int]:
