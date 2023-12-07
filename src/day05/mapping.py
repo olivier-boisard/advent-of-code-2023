@@ -1,30 +1,37 @@
-import dataclasses
-from typing import List
+from typing import Iterable, Callable
 
 
-@dataclasses.dataclass
-class RangeMap:
+class RangeMapper:
     destination_range_start: int
     source_range_start: int
     range_length: int
 
-    def __contains__(self, value: int) -> bool:
-        return self.source_range_start <= value < self.source_range_start + self.range_length
+    def __init__(
+            self,
+            destination_range_start: int,
+            source_range_start: int,
+            range_length: int
+    ):
+        self._destination_range_start = destination_range_start
+        self._source_range_start = source_range_start
+        self._range_length = range_length
 
-    def __getitem__(self, item: int) -> int:
-        if item not in self:
-            raise IndexError(f'Unknown key {item}')
-        return item - self.source_range_start + self.destination_range_start
+    def __call__(self, value: int) -> int:
+        if self._source_range_start <= value < self._source_range_start + self._range_length:
+            output = value - self._source_range_start + self._destination_range_start
+        else:
+            output = value
+        return output
 
 
-class MultiRangesMap:
-    def __init__(self, range_maps: List[RangeMap]):
-        self._range_maps = range_maps
+class MultipleMapper[T, U]:
+    def __init__(self, mappers: Iterable[Callable[[T], U]]):
+        self._mappers = mappers
 
-    def __getitem__(self, item: int) -> int:
+    def __call__(self, item: T) -> U:
         output = item
-        for range_map in self._range_maps:
-            if item in range_map:
-                output = range_map[item]
+        for mapper in self._mappers:
+            output = mapper(item)
+            if output != item:
                 break
         return output
