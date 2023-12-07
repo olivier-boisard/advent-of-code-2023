@@ -13,7 +13,7 @@ def solve(puzzle_input: Iterable[str]) -> int:
 
     min_number = None
     for seed_range_start, seed_range_length in zip(seed_range_starts, seed_range_lengths):
-        for number in tqdm.tqdm(range(seed_range_start, seed_range_start + seed_range_length)):
+        for number in range(seed_range_start, seed_range_start + seed_range_length):
             for range_map in all_maps:
                 number = range_map[number]
             if min_number is None:
