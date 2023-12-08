@@ -1,16 +1,17 @@
 from typing import Iterable
 
 from day05.extraction import extract_map_and_seeds
+from day05.mapping import Interval
 
 
 def solve(puzzle_input: Iterable[str]) -> int:
-    mapper, seed_ranges = extract_map_and_seeds(puzzle_input)
+    mapper, seed_intervals = extract_map_and_seeds(puzzle_input)
 
-    seed_range_starts = seed_ranges[0::2]
-    seed_range_lengths = seed_ranges[1::2]
+    seed_interval_starts = seed_intervals[0::2]
+    seed_interval_lengths = seed_intervals[1::2]
 
-    min_numbers = []
-    for seed_range_start, seed_range_length in zip(seed_range_starts, seed_range_lengths):
-        seed_range_stop = seed_range_start + seed_range_length
-        min_numbers.append(min(*[mapper(number) for number in range(seed_range_start, seed_range_stop)]))
-    return min(min_numbers)
+    intervals = [Interval(start, start + length) for start, length in zip(seed_interval_starts, seed_interval_lengths)]
+    intervals = sorted(intervals, key=lambda r: r.start)
+    final_intervals = mapper(intervals)
+
+    return final_intervals[0].start

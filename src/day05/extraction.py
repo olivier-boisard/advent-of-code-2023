@@ -1,7 +1,7 @@
 import re
-from typing import List, Iterable, Callable, Any, Tuple
+from typing import List, Iterable, Callable, Any, Tuple, Union
 
-from day05.mapping import RangeMapper, MultipleMapper
+from day05.mapping import IntervalMapper, MultipleMapper
 
 
 def _chain(item: Any, funcs: Iterable[Callable[[Any], Any]]) -> Any:
@@ -10,9 +10,9 @@ def _chain(item: Any, funcs: Iterable[Callable[[Any], Any]]) -> Any:
     return item
 
 
-def extract_map_and_seeds(puzzle_input: Iterable[str]) -> Tuple[Callable[[int], int], Iterable[int]]:
+def extract_map_and_seeds[T](puzzle_input: Iterable[str]) -> Tuple[Callable[[T], T], Iterable[int]]:
     current_map_str = None
-    current_ranges = []
+    current_interval_mappers = []
     all_mappers = []
     seeds = None
     for line in puzzle_input:
@@ -20,14 +20,14 @@ def extract_map_and_seeds(puzzle_input: Iterable[str]) -> Tuple[Callable[[int], 
             seeds = _extract_numbers(line)
         elif '-to-' in line:
             if current_map_str is not None:
-                all_mappers.append(MultipleMapper(current_ranges))
-            current_ranges = []
+                all_mappers.append(MultipleMapper(current_interval_mappers))
+            current_interval_mappers = []
             current_map_str = line.split(' ')[0]
         else:
             numbers = _extract_numbers(line)
             if len(numbers) == 3:
-                current_ranges.append(RangeMapper(*numbers))
-    all_mappers.append(MultipleMapper(current_ranges))
+                current_interval_mappers.append(IntervalMapper(*numbers))
+    all_mappers.append(MultipleMapper(current_interval_mappers))
     if seeds is None:
         raise RuntimeError('No seeds found')
 
