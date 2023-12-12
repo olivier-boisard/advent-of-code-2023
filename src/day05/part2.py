@@ -39,7 +39,7 @@ class _RangeIntervalMapper(IntervalMapperMixin):
         intervals.append(  # Interval below accepted source interval start
             _FlaggedInterval(
                 start=interval.start,
-                stop=min(interval.stop, self.source_interval_start)
+                stop=min(interval.stop, self.source_interval_start - 1)
             )
         )
         intervals.append(  # Interval within accepted source interval bounds
@@ -51,7 +51,7 @@ class _RangeIntervalMapper(IntervalMapperMixin):
         )
         intervals.append(  # Interval above accepted source interval end
             _FlaggedInterval(
-                start=max(interval.start, source_interval_stop),
+                start=max(interval.start, source_interval_stop + 1),
                 stop=interval.stop
             )
         )
