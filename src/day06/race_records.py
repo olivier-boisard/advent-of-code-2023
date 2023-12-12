@@ -1,7 +1,13 @@
 from dataclasses import dataclass
 
 
-def compute_n_options_to_beat_record(race_record):
+@dataclass
+class RaceRecord:
+    time: int
+    distance: int
+
+
+def compute_n_options_to_beat_record(race_record: RaceRecord) -> int:
     half_time = race_record.time // 2
     upper_bound = half_time
     lower_bound = 0
@@ -19,9 +25,3 @@ def compute_n_options_to_beat_record(race_record):
         n_options -= 1
 
     return n_options
-
-
-@dataclass
-class RaceRecord:
-    time: int
-    distance: int
