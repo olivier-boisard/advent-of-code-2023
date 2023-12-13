@@ -5,7 +5,7 @@ from day07.hand import HandType, standard_strength_computer, run_game
 
 
 def solve(puzzle_input: Iterable[str]) -> int:
-    return run_game(puzzle_input, _joker_strength_computer)
+    return run_game(puzzle_input, _joker_strength_computer, {'T': 10, 'J': 1, 'Q': 12, 'K': 13, 'A': 14})
 
 
 def _joker_strength_computer(hand: str) -> HandType:

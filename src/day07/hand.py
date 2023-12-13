@@ -1,7 +1,7 @@
 from collections import Counter
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import Callable
+from typing import Callable, Mapping
 
 
 class HandType(IntEnum):
@@ -19,13 +19,13 @@ class HandWithBid:
     hand: str
     bid: int
     strength_func: Callable[[str], HandType]
+    figure_to_int: Mapping[str, int]
 
     def __int__(self):
-        figure_to_int = {'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
         output = 0
-        base = max(figure_to_int.values()) + 1
+        base = max(self.figure_to_int.values()) + 1
         for i, card in enumerate(self.hand[::-1]):
-            output += base ** i * (figure_to_int[card] if card in figure_to_int else int(card))
+            output += base ** i * (self.figure_to_int[card] if card in self.figure_to_int else int(card))
         return output + self.hand_type * base ** len(self.hand)
 
     @property
@@ -49,7 +49,7 @@ def standard_strength_computer(hand: str) -> HandType:
     return output
 
 
-def run_game(puzzle_input, strength_func):
+def run_game(puzzle_input, strength_func, figure_to_int):
     hands = []
     for line in puzzle_input:
         parts = line.split(' ')
@@ -57,7 +57,8 @@ def run_game(puzzle_input, strength_func):
             HandWithBid(
                 hand=parts[0],
                 bid=int(parts[1]),
-                strength_func=strength_func
+                strength_func=strength_func,
+                figure_to_int=figure_to_int
             )
         )
     return sum(hand.bid * (i + 1) for i, hand in enumerate(sorted(hands, key=int)))
