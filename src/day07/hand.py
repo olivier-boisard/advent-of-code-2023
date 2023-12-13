@@ -62,5 +62,4 @@ def run_game(puzzle_input, strength_func):
                 strength_func=strength_func
             )
         )
-    hands = sorted(hands, key=lambda h: int(h))
-    return sum(hand.bid * (i + 1) for i, hand in enumerate(hands))
+    return sum(hand.bid * (i + 1) for i, hand in enumerate(sorted(hands, key=int)))
