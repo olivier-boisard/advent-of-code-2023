@@ -1,7 +1,6 @@
 from collections import Counter
-from dataclasses import dataclass
 from enum import IntEnum
-from typing import Callable, Mapping
+from typing import Mapping, Callable
 
 
 class HandType(IntEnum):
@@ -14,26 +13,7 @@ class HandType(IntEnum):
     HIGH_CARD = 1
 
 
-@dataclass
-class HandWithBid:
-    hand: str
-    bid: int
-    strength_func: Callable[[str], HandType]
-    figure_to_int: Mapping[str, int]
-
-    def __int__(self):
-        output = 0
-        base = max(self.figure_to_int.values()) + 1
-        for i, card in enumerate(self.hand[::-1]):
-            output += base ** i * (self.figure_to_int[card] if card in self.figure_to_int else int(card))
-        return output + self.hand_type * base ** len(self.hand)
-
-    @property
-    def hand_type(self) -> HandType:
-        return self.strength_func(self.hand)
-
-
-def standard_strength_computer(hand: str) -> HandType:
+def standard_type_extractor(hand: str) -> HandType:
     highest_occurrences_count = max(Counter(hand).values())
     n_different_cards = len(set(hand))
     if n_different_cards == 1:
@@ -49,16 +29,18 @@ def standard_strength_computer(hand: str) -> HandType:
     return output
 
 
-def run_game(puzzle_input, strength_func, figure_to_int):
-    hands = []
-    for line in puzzle_input:
-        parts = line.split(' ')
-        hands.append(
-            HandWithBid(
-                hand=parts[0],
-                bid=int(parts[1]),
-                strength_func=strength_func,
-                figure_to_int=figure_to_int
-            )
-        )
-    return sum(hand.bid * (i + 1) for i, hand in enumerate(sorted(hands, key=int)))
+class HandStrengthComputer:
+    def __init__(
+            self,
+            figure_to_int: Mapping[str, int],
+            type_extractor: Callable[[str], int] = standard_type_extractor
+    ):
+        self._figure_to_int = figure_to_int
+        self._type_extractor = type_extractor
+
+    def __call__(self, hand: str) -> int:
+        output = 0
+        base = max(self._figure_to_int.values()) + 1
+        for i, card in enumerate(hand[::-1]):
+            output += base ** i * (self._figure_to_int[card] if card in self._figure_to_int else int(card))
+        return output + self._type_extractor(hand) * base ** len(hand)
