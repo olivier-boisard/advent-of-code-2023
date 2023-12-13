@@ -17,18 +17,14 @@ def _joker_strength_computer(hand: str) -> HandType:
         replacement_card = 'A'
     else:
         most_common_card_count = most_common_cards[0]
-        most_common_card = most_common_card_count[0]
-        replacement_card = most_common_card
+        replacement_card = most_common_card_count[0]
         if most_common_card_count[1] == 1:  # if each card is different
             replacement_card = _extract_most_powerful_card(hand_without_jokers)
         else:
             if len(most_common_cards) == n_most_common_cards:
-                second_most_common_card_count = most_common_cards[1]
-                if most_common_card_count[1] == 2 and second_most_common_card_count[1] == 2:  # if there are two pairs
+                if most_common_card_count[1] == 2 and most_common_cards[1][1] == 2:  # if there are two pairs
                     replacement_card = _extract_highest_pair_card(most_common_cards)
-    hand = hand.replace(jocker_str, replacement_card)
-
-    return standard_strength_computer(hand)
+    return standard_strength_computer(hand.replace(jocker_str, replacement_card))
 
 
 def _extract_highest_pair_card(most_common_cards: List[Tuple[str, int]]) -> str:
