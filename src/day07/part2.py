@@ -27,9 +27,9 @@ def _joker_strength_computer(hand: str) -> HandType:
     return standard_strength_computer(hand.replace(jocker_str, replacement_card))
 
 
-def _extract_most_powerful_card(hand_without_jokers):
+def _extract_most_powerful_card(hand: str) -> str:
     card_values = []
-    for card in hand_without_jokers:
+    for card in hand:
         card_values.append(FIGURE_TO_INT[card] if card in FIGURE_TO_INT else int(card))
     max_card_value = max(card_values)
     return INT_TO_FIGURE[max_card_value] if max_card_value in INT_TO_FIGURE else str(max_card_value)
