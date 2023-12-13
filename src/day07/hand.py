@@ -3,9 +3,6 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import Callable
 
-FIGURE_TO_INT = {'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
-INT_TO_FIGURE = {value: key for key, value in FIGURE_TO_INT.items()}
-
 
 class HandType(IntEnum):
     FIVE_OF_A_KIND = 7
@@ -24,10 +21,11 @@ class HandWithBid:
     strength_func: Callable[[str], HandType]
 
     def __int__(self):
+        figure_to_int = {'T': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
         output = 0
-        base = max(FIGURE_TO_INT.values()) + 1
+        base = max(figure_to_int.values()) + 1
         for i, card in enumerate(self.hand[::-1]):
-            output += base ** i * (FIGURE_TO_INT[card] if card in FIGURE_TO_INT else int(card))
+            output += base ** i * (figure_to_int[card] if card in figure_to_int else int(card))
         return output + self.hand_type * base ** len(self.hand)
 
     @property
