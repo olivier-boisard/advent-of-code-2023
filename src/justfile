@@ -68,3 +68,12 @@ day07-part1 $SOLVER="day07.part1" $EXAMPLE_FILE_PATH="../resources/day07/example
 day07-part2 $SOLVER="day07.part2" $EXAMPLE_FILE_PATH="../resources/day07/example.txt" $EXPECTED_OUTPUT="5905" $INPUT_FILE_PATH="../resources/day07/input.txt":
   just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
   just run $SOLVER $INPUT_FILE_PATH
+
+day08-part1 $SOLVER="day08.part1" $EXAMPLE_1_FILE_PATH="../resources/day08/example-1.txt" $EXAMPLE_2_FILE_PATH="../resources/day08/example-2.txt" $EXPECTED_OUTPUT_1="2" $EXPECTED_OUTPUT_2="6" $INPUT_FILE_PATH="../resources/day08/input.txt":
+  just run-example $SOLVER $EXAMPLE_1_FILE_PATH $EXPECTED_OUTPUT_1
+  just run-example $SOLVER $EXAMPLE_2_FILE_PATH $EXPECTED_OUTPUT_2
+  just run $SOLVER $INPUT_FILE_PATH
+
+day08-part2 $SOLVER="day08.part2" $EXAMPLE_FILE_PATH="../resources/day08/example-3.txt" $EXAMPLE_2_FILE_PATH="../resources/day08/example-2.txt" $EXPECTED_OUTPUT="6" $INPUT_FILE_PATH="../resources/day08/input.txt":
+  just run-example $SOLVER $EXAMPLE_FILE_PATH $EXPECTED_OUTPUT
+  just run $SOLVER $INPUT_FILE_PATH
