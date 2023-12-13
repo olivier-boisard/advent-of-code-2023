@@ -1,7 +1,7 @@
 from typing import Iterable
 
-from day07.hand import standard_type_extractor, HandStrengthComputer
 from day07.game import run
+from day07.hand import HandStrengthComputer
 
 
 def solve(puzzle_input: Iterable[str]) -> int:
