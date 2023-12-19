@@ -1,15 +1,7 @@
 from dataclasses import dataclass
 from math import ceil, log10
 
-
-@dataclass
-class Point2D:
-    line: int
-
-    column: int
-
-    def __add__(self, other: 'Point2D') -> 'Point2D':
-        return Point2D(line=self.line + other.line, column=self.column + other.column)
+from point2d import Point2D
 
 
 @dataclass

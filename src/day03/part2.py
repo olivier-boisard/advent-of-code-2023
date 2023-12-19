@@ -2,7 +2,8 @@ import itertools
 from typing import Iterable
 
 from day03.extraction import extract_parts, extract_symbols
-from day03.part import Point2D, Part
+from day03.part import Part
+from point2d import Point2D
 
 
 def solve(puzzle_input: Iterable[str]) -> int:

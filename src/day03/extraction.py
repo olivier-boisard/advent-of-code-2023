@@ -1,7 +1,8 @@
 import re
 from typing import Iterable
 
-from day03.part import Point2D, Part
+from day03.part import Part
+from point2d import Point2D
 
 
 def extract_symbols(puzzle_input: Iterable[str]) -> Iterable:
